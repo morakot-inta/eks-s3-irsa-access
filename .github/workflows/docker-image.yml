@@ -22,8 +22,9 @@ jobs:
       id-token: write
 
     steps:
-    - uses: prompt/actions-commit-hash@v2
+    - name: Get commit hash
       id: commit
+      run: echo "commit_hash=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       
     - uses: actions/checkout@v4
 
@@ -38,8 +39,9 @@ jobs:
       run: |
         docker buildx build \
           --platform linux/arm64,linux/amd64 \
-          --push \
           --tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.commit.outputs.commit_hash }} \
           .
+        docker push \
+          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.commit.outputs.commit_hash }}
 
     
