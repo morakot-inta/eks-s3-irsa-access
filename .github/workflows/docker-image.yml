@@ -17,7 +17,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: read
+      packages: write
       attestations: write
       id-token: write
 
@@ -35,12 +35,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Build and push Docker image
-      id: push
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        push: true
-        tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.commit.outputs.short }}
+      run: |
+        docker build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.commit.outputs.commit_hash }}
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.commit.outputs.commit_hash }}
     
 
 
