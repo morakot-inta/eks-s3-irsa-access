@@ -20,3 +20,6 @@ jobs:
     
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ekss3irsaaccess:${{ steps.commit.outputs.short }}
+    
+    - name: Push the github image
+      run: docker push ekss3irsaaccess:${{ steps.commit.outputs.short }}
