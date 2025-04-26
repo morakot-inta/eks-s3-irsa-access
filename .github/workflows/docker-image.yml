@@ -48,6 +48,8 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           /orgs/${{ github.repository_owner }}/packages/container/${{ env.IMAGE_NAME }}/visibility \
           -f visibility=public 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
     
