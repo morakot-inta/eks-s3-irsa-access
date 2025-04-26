@@ -17,7 +17,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: write
+      packages: read
       attestations: write
       id-token: write
 
@@ -44,10 +44,7 @@ jobs:
     
     - name: Set package visibility to public
       run: |
-        gh api --method PATCH \
-          -H "Accept: application/vnd.github+json" \
-          /orgs/${{ github.repository_owner }}/packages/container/${{ env.IMAGE_NAME }}/visibility \
-          -f visibility=public 
+        gh api --method PATCH /user/ 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
