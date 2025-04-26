@@ -42,11 +42,6 @@ jobs:
         push: true
         tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.commit.outputs.short }}
     
-    - name: Set package visibility to public
-      run: |
-        gh api --method PATCH /user/ 
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
     
