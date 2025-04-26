@@ -44,16 +44,10 @@ jobs:
     
     - name: Set package visibility to public
       run: |
-        gh api \
-          -X PATCH \
+        gh api --method PATCH \
           -H "Accept: application/vnd.github+json" \
           /orgs/${{ github.repository_owner }}/packages/container/${{ env.IMAGE_NAME }}/visibility \
-          -f visibility=public \
-          -F package_type=container \
-          -F repository=${{ github.repository }}
-          -F visibility=public \
-          -F package_type=container \
-          -F repository=${{ github.repository }}
+          -f visibility=public 
 
 
     
